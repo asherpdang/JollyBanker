@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Headers">
+      <UniqueIdentifier>{044d2653-b970-4711-a549-4124f3505eac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{866db416-d1a6-4f70-8ed1-b35eda64ca3f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Account.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="BSTree.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Fund.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="JollyBanker.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Transaction.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="BSTree.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Fund.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="JollyBanker.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Transaction.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Account.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="BankTransIn.txt" />
+  </ItemGroup>
+</Project>
