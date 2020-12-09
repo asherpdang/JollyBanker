@@ -1,5 +1,4 @@
 #pragma once
-#include "stdafx.h"
 #include <queue>
 #include "BSTree.h"
 #include "Transaction.h"
@@ -14,6 +13,11 @@ using namespace std;
 #ifndef ASS3_JOLLYBANKER_H
 #define ASS3_JOLLYBANKER_H
 
+/*
+* Bank class takes in a text file of good formatted
+* Reads the file and stores the transactions
+* Executes the transactions making accounts and moving around funds
+*/
 class JollyBanker {
 private:
 	queue<Transaction> transactionList;
@@ -21,12 +25,13 @@ private:
 	BSTree accountList;
 
 public:
-	JollyBanker();
+	JollyBanker();//constructor
 	~JollyBanker();
-	void readIn(string file);
-	void createTrans();
-	void exeTransaction();
-	void display();
+
+	void readIn(string file);//Reads file, store each line in queue as strings
+	void createTrans();//reads the queue and create queue of transactions to be done
+	void exeTransaction();//reads the queue of transactions and executes them until nothing left in queue
+	void display();//Finally display the balances and funds of all users
 };
 
 #endif //!ASS3_JOLLYBANKER_H

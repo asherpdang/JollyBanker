@@ -1,5 +1,8 @@
 #include "Transaction.h"
 
+/*
+* Overloaded output operator to print out the transaction
+*/
 ostream& operator<<(ostream& out, const Transaction& trans) {
 	if (trans.fail.empty()) {
 		if (trans.transType == 'D' || trans.transType == 'd' || trans.transType == 'W' || trans.transType == 'w') {
@@ -29,6 +32,10 @@ Transaction::Transaction() {}
 //destructor
 Transaction::~Transaction() {};
 
+/*
+* Open account transaction
+* stores type, first/last name, and account number
+*/
 Transaction::Transaction(char type, string firstName, string lastName, int accountNum) {
 	transType = type;
 	this->firstName = firstName;
@@ -42,6 +49,10 @@ Transaction::Transaction(char type, string firstName, string lastName, int accou
 	transaction = transType + " " + firstName + " " + lastName + " " + to_string(accountID);
 }
 
+/*
+* Makes a transaction for withdrawing and depositing transactions
+* stores transaction type, accountID, fundID, and amount
+*/
 Transaction::Transaction(char type, int accountNum, int fundNum, int amnt) {
 	transType = type;
 	this->accountID = accountNum;
@@ -53,17 +64,13 @@ Transaction::Transaction(char type, int accountNum, int fundNum, int amnt) {
 	transferAccountID = -1;
 	transferFundID = -1;
 
-	if (type == 'W' || type == 'w') {
-		transaction = "Withdraw $" + to_string(amnt) + " from fundID: " + to_string(fundNum)
-			+ " in accountID: " + to_string(accountNum);
-	}
-	else {
-		transaction = "Desposit $" + to_string(amnt) + " to fundID: " + to_string(fundNum)
-			+ " in accountID: " + to_string(accountNum);
-	}
-	
+	transaction = transType + " " + to_string(accountID) + to_string(fundID) + " " + to_string(amount);
 }
 
+/*
+* Makes transactions for transfer transactions
+* stores transaction type, accountID, fundID, amount, transferAccountID, transferFundID
+*/
 Transaction::Transaction(char type, int accountNum, int fundNum, int amnt, int transferAcntNum, int transferFundNum) {
 	transType = type;
 	accountID = accountNum;
@@ -75,24 +82,9 @@ Transaction::Transaction(char type, int accountNum, int fundNum, int amnt, int t
 	lastName = "";
 	fail = "";
 
-	string fundNames[] = { "Money Market", "Prime Money Market", "Long-Term Bond", "Short-Term Bond",
-	"500 Index Fund", "Capital Value Fund", "Growth Equity Fund", "Growth Index Fund", "Value Fund",
-	"Value Stock Index" };
+	transaction = transType + " " + to_string(accountID) + to_string(fundID) + " " + to_string(amount) + " "
+		+ to_string(transferAccountID) + to_string(transferFundID);
 
-	int acntNum1 = accountNum / 10;
-	int acntNum2 = transferAcntNum / 10;
-
-	int fundIndex1 = accountNum % 10;
-	int fundIndex2 = transferAccountID % 10;
-
-	if (acntNum1 == acntNum2) {
-		transaction = "Transfer $" + to_string(amnt) + " from Client: " + to_string(accountNum) + "'s "
-			+ fundNames[fundIndex1] + " to " + fundNames[fundIndex2];
-	}
-	else {
-		transaction = "Transfer $" + to_string(amnt) + " from Client: " + to_string(accountNum) + "'s "
-			+ fundNames[fundIndex1] + " to Client: " + to_string(transferAcntNum) + " " +fundNames[fundIndex2];
-	}
 }
 
 //This constructor stores the transaction that displays all all transactions of an accountID
@@ -107,7 +99,7 @@ Transaction::Transaction(char type, int accountNum) {
 	lastName = "";
 	fail = "";
 
-	transaction = "Display the History of all transactions of all accounts for client  " + to_string(accountNum);
+	transaction = transType + " " + to_string(accountID);
 }
 
 
@@ -124,15 +116,12 @@ Transaction::Transaction(char type, int accountNum, int fundNum) {
 	lastName = "";
 	fail = "";
 
-	string fundNames[] = { "Money Market", "Prime Money Market", "Long-Term Bond", "Short-Term Bond",
-	"500 Index Fund", "Capital Value Fund", "Growth Equity Fund", "Growth Index Fund", "Value Fund",
-	"Value Stock Index" };
+	transaction = transType + " " + to_string(accountID) + to_string(fundID);
 
-	transaction = "Display the History for all transactions on the " + fundNames[fundNum] + " for client " + to_string(accountNum);
 }
 
 
-//ERROR transaction
+//ERROR transaction creation for transfer transactions
 Transaction::Transaction(char type, int accountNum, int fundNum, int amount, int transAcntNum, int transFundNum, string failString) {
 	transType = type;
 	accountID = accountNum;
@@ -148,7 +137,7 @@ Transaction::Transaction(char type, int accountNum, int fundNum, int amount, int
 }
 
 
-//ERROR transaction
+//ERROR transaction creation for account not found
 Transaction::Transaction(char type, int accountNum, int fundNum, string failString, int amnt) {
 	transType = type;
 	accountID = accountNum;
@@ -204,6 +193,7 @@ int Transaction::getAmount() const {
 	return amount;
 }
 
+//Returns the string of the transaction
 string Transaction::getTransaction() const {
 	return transaction;
 }

@@ -79,7 +79,6 @@
     <ClInclude Include="BSTree.h" />
     <ClInclude Include="Fund.h" />
     <ClInclude Include="JollyBanker.h" />
-    <ClInclude Include="stdafx.h" />
     <ClInclude Include="Transaction.h" />
   </ItemGroup>
   <ItemGroup>
@@ -88,7 +87,6 @@
     <ClCompile Include="Fund.cpp" />
     <ClCompile Include="JollyBanker.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="Transaction.cpp" />
   </ItemGroup>
   <ItemGroup>

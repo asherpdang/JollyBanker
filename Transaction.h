@@ -6,6 +6,10 @@ using namespace std;
 #ifndef ASS3_TRANSACTION_H
 #define ASS3_TRANSACTION_H
 
+/*
+* Creates transactions from strings
+* stores first/last names, transaction type, id's, and amount
+*/
 class Transaction {
 	friend ostream& operator<<(ostream &out, const Transaction &trans);
 
@@ -18,6 +22,7 @@ private:
 	int accountID, fundID, transferAccountID, transferFundID, amount;
 
 public:
+	//Constructors
 	Transaction();
 	~Transaction();
 	Transaction(char type, string firstName, string lastName, int accountNum);
@@ -30,6 +35,7 @@ public:
 	Transaction(char type, int accountNum, int fundNum, int amount, int transferAcntNum, int transFundNum, string failString);
 	Transaction(char type, int accountNum, int fundNum, string failString, int amnt);
 
+	//Getters for data items
 	char getTransType() const;
 	string getFirstName() const;
 	string getLastName() const;

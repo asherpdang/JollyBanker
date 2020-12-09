@@ -3,7 +3,7 @@
 Fund::Fund()
 {
 	balance = 0;
-	fundName = "";
+	fundName = "";//No name
 }
 
 //destructor for fund class
@@ -11,14 +11,14 @@ Fund::~Fund() {}
 
 //Adds money to the fund balance
 bool Fund::addAmount(int amntIn) {
-	if (amntIn <= 0) return false;
+	if (amntIn <= 0) return false;//amount is an error
 	balance += amntIn;
 	return true;
 }
 
 //Subtracts money from fund
 bool Fund::subAmount(int numToSub) {
-	if (numToSub <= 0) return false;
+	if (numToSub <= 0) return false;//amount is an error
 	balance -= numToSub;
 	return true;
 }
@@ -39,8 +39,9 @@ bool Fund::recordTrans(const Transaction &trans) {
 
 //Prints the funds history of transactions
 void Fund::printHistory() {
-	if (history.size() == 0) return;
+	if (history.size() == 0) return;//Nothing in the history
 
+	//Prints fund name and total balance
 	cout << fundName << ": $" << balance << endl;
 	for (int i = 0; i < history.size(); i++) {
 		cout << "  " << history[i] << endl;

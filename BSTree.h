@@ -4,8 +4,13 @@
 #ifndef ASS3_BSTREE_H
 #define ASS3_BSTREE_H
 
+/*
+* Data structure that stores account objects
+* sorts accounts by account id, 4 digits
+*/
 class BSTree {
 private:
+	//Nodes structure to create the bs tree
 	struct Node {
 		Node* left = NULL;
 		Node* right = NULL;

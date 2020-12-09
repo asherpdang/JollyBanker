@@ -7,68 +7,82 @@ BSTree::BSTree() {
 
 //Destructor that cleans up memory 
 BSTree::~BSTree() {
-	Empty();
+	Empty();//clear memory
 }
 
 //Inserts an account item into the bstree
 bool BSTree::Insert(Account *acnt) {
 
 	int acntID = acnt->getAcntID();
+	//Catch invalid type of making an account
 	if (acntID < 1000 || acntID > 9999) {
 		cout << "ERROR: Account Number Not Valid!" << endl;
 		return false;
 	}
 
+	//Creates account when the root is null
 	if (root == NULL) {
 		root = new Node(acnt);
 		return true;
 	}
 	else {
+		//traverse the bstree until at its rightful place
+		//create an account
 		Node* current = root;
-		recInsert(current, acnt);
+		recInsert(current, acnt);//recursion
 	}
-	return false;
+	return false;//if can't be inserted
 }
 
-/*Recursively inserts the account into the bstree*/
+/*Recursively inserts the account into the bstree
+* Used by Insert()
+* traverses the tree to insert account
+*/
 bool BSTree::recInsert(Node* current, Account* acnt) {
 
+	//Check if account ID is less than bstree current ID
 	if (acnt->getAcntID() < current->pAcct->getAcntID()) {
 
+		//Create a new account to the left 
 		if (current->left == NULL) {
 			Node* newAcnt = new Node(acnt);
 			current->left = newAcnt;
 			return true;
 		}
 		else {
+			//keep going left
 			return recInsert(current->left, acnt);
 		}
-	}
+	}//Go right
 	else if(acnt->getAcntID() > current->pAcct->getAcntID())
 	{
+		//Create a new account object on the right
 		if(current->right == NULL){
 			Node* newAcnt = new Node(acnt);
 			current->right = newAcnt;
 			return true;
 		}
 		else {
+			//Go right again
 			return recInsert(current->right, acnt);
 		}
 	}
 	else {
+		//If account is already open then error transaction
 		cout << "ERROR: Account " << acnt->getAcntID() << " is already open. Transaction Refused." << endl;
 		return false;
 	}
 }
 
-//Retrieves an item from the bstree
+//Retrieves an account from the bstree with the corresponding account number
 bool BSTree::Retrieve(const int& acNum, Account*& acnt) const{
 	Node* current = root;
 	bool search = false;
+
 	while (!search) {
 		if (current != NULL && acNum == current->pAcct->getAcntID()) {
 			//Found account
-			acnt = current->pAcct;
+			acnt = current->pAcct;//set account pointer
 			search = true;
 			return search;
 		}
@@ -82,6 +96,7 @@ bool BSTree::Retrieve(const int& acNum, Account*& acnt) const{
 			search = true;
 		}
 	}
+	//Cant find account so print out an error
 	cout << "ERROR: Account Number: " << acNum << " Cannot Be Found!" << endl;
 	return false;
 }
@@ -125,22 +140,22 @@ void BSTree::recPrint(Node* current) const{
 //Deletes everything
 void BSTree::Empty() {
 	Node* current = root;
-	if (root == NULL) return;
+	if (root == NULL) return;//Empty bstree
 
 	if (current->left == NULL && current->right == NULL) {
-		delete current;
+		delete current;//delete the current 
 	}
 	else if(current->left != NULL && current->right != NULL) {
-		delNode(current->left);
+		delNode(current->left);//go left and right
 		delNode(current->right);
 		delete current;
 	}
 	else if(current->left != NULL && current->right == NULL) {
-		delNode(current->left);
+		delNode(current->left);//go left
 		delete current;
 	}
 	else if (current->right != NULL && current->left == NULL) {
-		delNode(current->right);
+		delNode(current->right);//go right
 		delete current;
 	}
 
@@ -154,20 +169,21 @@ bool BSTree::isEmpty() {
 //Deletes the nodes from the left and right side of the trees
 //traverse through the entire tree and everything is deleted
 void BSTree::delNode(Node* current) {
-	if (current->left != NULL && current->right != NULL) {
-		delNode(current->left);
+
+	if (current->left == NULL && current->right == NULL) {
+		delete current;//Delete current
+	}
+	else if (current->left != NULL && current->right != NULL) {
+		delNode(current->left);//go left and right
 		delNode(current->right);
 		delete current;
 	}
 	else if (current->left != NULL && current->right == NULL) {
-		delNode(current->left);
+		delNode(current->left);//go left
 		delete current;
 	}
-	else if (current->right != NULL && current->left == NULL) {
-		delNode(current->right);
-		delete current;
-	}
-	else {
+	else if (current->left == NULL && current->right != NULL) {
+		delNode(current->right);//go right
 		delete current;
 	}
 }

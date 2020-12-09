@@ -24,9 +24,6 @@
     <ClInclude Include="Transaction.h">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="stdafx.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BSTree.cpp">
@@ -45,9 +42,6 @@
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="stdafx.cpp">
       <Filter>Source</Filter>
     </ClCompile>
   </ItemGroup>
