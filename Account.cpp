@@ -68,14 +68,15 @@ void Account::addToAccount(int fundNum, int amnt) {
 * Reocords the transaction in the fund history
 */
 bool Account::minusFunds(int fundNum, int amnt, Transaction &frontTrans) {
+	//First check if the special cases for fundIDs 0-3
 	if (fundNum >= 0 && fundNum <= 3) {//Check fund number id
 
-		if(fundNum == 0 || fundNum == 1){//if fundID 0 or 1
+		if(fundNum == 0 || fundNum == 1){//For money market accounts
 
-			if (arrayFund[fundNum].balCheck(amnt)) {
+			if (arrayFund[fundNum].balCheck(amnt)) {//check amount
 				//subtract amount
 				arrayFund[fundNum].subAmount(amnt);
-				arrayFund[fundNum].recordTrans(frontTrans);
+				arrayFund[fundNum].recordTrans(frontTrans);//record transaction
 				return true;
 			}
 			else if (arrayFund[0].getBal() + arrayFund[1].getBal() >= amnt) {
@@ -99,35 +100,35 @@ bool Account::minusFunds(int fundNum, int amnt, Transaction &frontTrans) {
 				return false;
 			}
 		}
-	}
-	else if(fundNum == 2 || fundNum == 3){
-		//Fund ID 2 or 3
-		if (arrayFund[fundNum].balCheck(amnt)) {
-			arrayFund[fundNum].subAmount(amnt);
-			arrayFund[fundNum].recordTrans(frontTrans);
-			return true;
-		}
-		else if (arrayFund[2].getBal() + arrayFund[3].getBal() >= amnt) {
-			if (fundNum == 2) {
-				withdFromSimmilarAcct(2, 3, amnt);
+		else if (fundNum == 2 || fundNum == 3) {//For bond accounts
+			//Fund ID 2 or 3
+			if (arrayFund[fundNum].balCheck(amnt)) {
+				arrayFund[fundNum].subAmount(amnt);
+				arrayFund[fundNum].recordTrans(frontTrans);
+				return true;
+			}
+			else if (arrayFund[2].getBal() + arrayFund[3].getBal() >= amnt) {
+				if (fundNum == 2) {
+					withdFromSimmilarAcct(2, 3, amnt);
+				}
+				else {
+					withdFromSimmilarAcct(3, 2, amnt);
+				}
 			}
 			else {
-				withdFromSimmilarAcct(3, 2, amnt);
+				//create error
+				error(amnt, getFirstName(), getLastName(), fundNum);
+				if (fundNum == 2) {
+					withdFromSimmilarAcct(2, 3, amnt);
+				}
+				else {
+					withdFromSimmilarAcct(3, 2, amnt);
+				}
+				return false;
 			}
-		}
-		else {
-			//create error
-			error(amnt, getFirstName(), getLastName(), fundNum);
-			if (fundNum == 2) {
-				withdFromSimmilarAcct(2, 3, amnt);
-			}
-			else {
-				withdFromSimmilarAcct(3, 2, amnt);
-			}
-			return false;
 		}
 	}
-	else {
+	else {//For every other account from fundID 4-9
 		//Checks balance
 		if (arrayFund[fundNum].balCheck(amnt)) {
 			arrayFund[fundNum].subAmount(amnt);
@@ -159,7 +160,7 @@ void Account::withdFromSimmilarAcct(int firstFund, int secondFund, int amnt) {
 
 	//If both account have enough money, more than the amnt
 	if (arrayFund[firstFund].getBal() + arrayFund[secondFund].getBal() >= amnt) {
-		//
+		
 		int availBal = arrayFund[firstFund].getBal();
 		arrayFund[firstFund].subAmount(availBal);//subtract amount
 		Transaction addToHistory1('W', getAcntID(), firstFund, availBal);
@@ -167,7 +168,7 @@ void Account::withdFromSimmilarAcct(int firstFund, int secondFund, int amnt) {
 		amnt -= availBal;
 
 		arrayFund[secondFund].subAmount(amnt);
-		Transaction addToHistory2('W', getAcntID(), secondFund, availBal);
+		Transaction addToHistory2('W', getAcntID(), secondFund, amnt);
 		arrayFund[secondFund].recordTrans(addToHistory2);
 	}
 	else {

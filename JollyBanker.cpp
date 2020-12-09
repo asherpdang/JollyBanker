@@ -138,6 +138,8 @@ void JollyBanker::exeTransaction() {
 			int fundID = frontTrans.getFundID();
 			int amnt = frontTrans.getAmount();
 			Account* acnt;
+
+			/*********/
 			if (accountList.Retrieve(acntID, acnt)) {
 				acnt->minusFunds(fundID, amnt, frontTrans);
 			}
