@@ -25,11 +25,11 @@ public:
 	//Constructors
 	Transaction();
 	~Transaction();
-	Transaction(char type, string firstName, string lastName, int accountNum);
-	Transaction(char type, int accountNum, int fundNum, int amnt);
-	Transaction(char type, int accountNum, int fundNum, int amnt, int transferAcntNum, int transferFundNum);
-	Transaction(char type, int accountNum);
-	Transaction(char type, int accountNum, int fundNum);
+	Transaction(char type, string firstName, string lastName, int accountNum);//open account
+	Transaction(char type, int accountNum, int fundNum, int amnt);//withdraw/desposit account
+	Transaction(char type, int accountNum, int fundNum, int amnt, int transferAcntNum, int transferFundNum);//transfer account
+	Transaction(char type, int accountNum);//display account
+	Transaction(char type, int accountNum, int fundNum);//display fund
 
 	//Constructors create a failed transaction processing
 	Transaction(char type, int accountNum, int fundNum, int amount, int transferAcntNum, int transFundNum, string failString);

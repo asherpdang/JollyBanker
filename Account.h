@@ -27,20 +27,20 @@ public:
 	~Account();
 
 	//Methods 
-	void addToAccount(int fundNum, int amnt);
-	bool minusFunds(int fundNum, int amnt, Transaction &frontTrans);
-	void recordTrans(const Transaction &trans, int fundNum);
-	void withdFromSimmilarAcct(int primaryFund, int secondaryFund, int amnt);
-	void printHistory();
-	void printFundHistory(int fundNumber);
-	void error(int amnt, string firstN, string lastN, int fundNum);
+	void addToAccount(int fundNum, int amnt);//add money to account
+	bool minusFunds(int fundNum, int amnt, Transaction &frontTrans);//subtract money from account
+	void recordTrans(const Transaction &trans, int fundNum);//records transacion in specified fundID history
+	void withdFromSimmilarAcct(int primaryFund, int secondaryFund, int amnt);//Takes money from 1 fund and another fund if not enough funds
+	void printHistory();//prints whole history
+	void printFundHistory(int fundNumber);//prints specified history fund
+	void error(int amnt, string firstN, string lastN, int fundNum);//error 
 
 	//Getters 
-	int getAcntID() const;
-	int getBal(int fundNum)const;
-	string getFundName(int fundNum) const;
-	string getFirstName()const;
-	string getLastName()const;
+	int getAcntID() const;//gets account id
+	int getBal(int fundNum)const;//gets balance of account
+	string getFundName(int fundNum) const;//gets fund name
+	string getFirstName()const;//gets first name
+	string getLastName()const;//gets last name
 };
 
 #endif //!ASS3_ACCOUNT_H

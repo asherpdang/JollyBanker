@@ -1,10 +1,12 @@
 #include "Account.h"
 
 /*
-* Overloaded output operator
+* Overloaded output operator to print out the account information
+* first last names then account ID
+* fund balance
 */
 ostream& operator<<(ostream& out, Account& acnt) {
-	out << acnt.getFirstName() << " " << acnt.getLastName() << " ID: " << acnt.getAcntID() << endl;
+	out << acnt.getFirstName() << " " << acnt.getLastName() << " Account ID: " << acnt.getAcntID() << endl;
 	for (int i = 0; i < 10; i++)
 	{
 		out << " " << acnt.getFundName(i) << " :$" << acnt.getBal(i);
@@ -31,6 +33,7 @@ Account::Account() {
 }
 
 //Constructor with parameters
+//Create account with names and account id
 Account::Account(string firstN, string lastN, int accountID) {
 	firstName = firstN;
 	lastName = lastN;
@@ -57,6 +60,8 @@ Account::~Account() {
 
 /*
 * Adds money to the fund account with the amount 
+* Takes a FundID and amount to add
+* returns nothing
 */
 void Account::addToAccount(int fundNum, int amnt) {
 	arrayFund[fundNum].addAmount(amnt);
@@ -65,7 +70,10 @@ void Account::addToAccount(int fundNum, int amnt) {
 
 /*
 * Method subtracts an amount from a specified fund account
-* Reocords the transaction in the fund history
+* records the transaction in the fund history
+* FundID, amount to subtract, and transaction to store
+* return true if subtracting funds is true
+* False if not successful
 */
 bool Account::minusFunds(int fundNum, int amnt, Transaction &frontTrans) {
 	//First check if the special cases for fundIDs 0-3
@@ -146,6 +154,8 @@ bool Account::minusFunds(int fundNum, int amnt, Transaction &frontTrans) {
 
 /*Records the transaction
 * Put transaction in history of fund
+* Takes a fundID
+* returns nothing
 */
 void Account::recordTrans(const Transaction &trans, int fundNum) {
 	arrayFund[fundNum].recordTrans(trans);
@@ -155,6 +165,7 @@ void Account::recordTrans(const Transaction &trans, int fundNum) {
 * Method is used to withdraw money from two linked accounts
 * checks if the funds are enough to withdraw from
 * Also stores the transaction to fund history
+* returns nothing
 */
 void Account::withdFromSimmilarAcct(int firstFund, int secondFund, int amnt) {
 
@@ -173,7 +184,7 @@ void Account::withdFromSimmilarAcct(int firstFund, int secondFund, int amnt) {
 	}
 	else {
 		
-		int availBal = arrayFund[firstFund].getBal();
+		int availBal = arrayFund[firstFund].getBal();//first account
 		if (availBal > amnt) {
 			arrayFund[firstFund].subAmount(availBal);
 			Transaction addToHistory1('W', getAcntID(), firstFund, availBal);
@@ -187,6 +198,7 @@ void Account::withdFromSimmilarAcct(int firstFund, int secondFund, int amnt) {
 			arrayFund[secondFund].recordTrans(addToHistory1);
 		}
 		else {
+			//Error because account doesnt have enough funds
 			cout << "ERROR: Not Enough Funds to Withdraw " << amnt << " from " << getFirstName();
 			cout << " " << getLastName() << " " << getFundName(secondFund) << endl;
 			Transaction addToHistory1('W', getAcntID(), secondFund, "Failed", amnt);
@@ -205,6 +217,7 @@ void Account::printHistory() {
 }
 
 //Prints out transaction history of a specific fund
+//takes in specified fundID
 void Account::printFundHistory(int fundNum) {
 	cout << "Transaction History For " << getFirstName() << " ";
 	cout << getLastName() << endl;
@@ -213,6 +226,7 @@ void Account::printFundHistory(int fundNum) {
 
 //Prints out an error message for erronous transactions
 //adds the transaction to the specified fund
+//Takes amount, first/last name, and fundID
 void Account::error(int amnt, string firstN, string lastN, int fundNum) {
 	cout << "ERROR: Not Enough Funds to Withdraw " << amnt << " from " << getFirstName();
 	cout << " " << getLastName() << " " << getFundName(fundNum) << endl;

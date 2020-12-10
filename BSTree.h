@@ -22,25 +22,25 @@ private:
 			right = NULL;
 		}
 	};
-	Node* root;
-	bool recInsert(Node* current, Account* acnt); 
-	void recPrint(Node *current)const;
+	Node* root;//root to start the bs tree
+	bool recInsert(Node* current, Account* acnt); //recursively inserts account
+	void recPrint(Node *current)const;// prints out the bstree
 
 public:
-	BSTree();
+	BSTree();//constructors
 	~BSTree();
 
-	bool Insert(Account*);
+	bool Insert(Account*);//inserts an account object
 
 	//Retrieve object, first parameter is the ID of the account
 	//Second parameter holds pointer to found object, NULL if not found
 	bool Retrieve(const int&, Account*&)const;
 
 	//displays the contents of a tree to cout;
-	void Display() const;
-	void Empty();
-	bool isEmpty();
-	void delNode(Node*);
+	void Display() const;//display account/ history of the bstree
+	void Empty();//frees memory in tree
+	bool isEmpty();//checks if the tree is empty
+	void delNode(Node*);//deletes node
 };
 
 #endif //!ASS3_BSTREE_H

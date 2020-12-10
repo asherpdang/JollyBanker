@@ -11,6 +11,9 @@ BSTree::~BSTree() {
 }
 
 //Inserts an account item into the bstree
+/*
+* return true if inserting is successful, false if not
+*/
 bool BSTree::Insert(Account *acnt) {
 
 	int acntID = acnt->getAcntID();
@@ -75,6 +78,10 @@ bool BSTree::recInsert(Node* current, Account* acnt) {
 }
 
 //Retrieves an account from the bstree with the corresponding account number
+/*
+* takes an account ID and empty account pointer variable 
+* return true if account is found, false if not
+*/
 bool BSTree::Retrieve(const int& acNum, Account*& acnt) const{
 	Node* current = root;
 	bool search = false;

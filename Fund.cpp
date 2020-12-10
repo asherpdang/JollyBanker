@@ -10,6 +10,7 @@ Fund::Fund()
 Fund::~Fund() {}
 
 //Adds money to the fund balance
+//Returns true if successful, false if not
 bool Fund::addAmount(int amntIn) {
 	if (amntIn <= 0) return false;//amount is an error
 	balance += amntIn;
@@ -17,6 +18,7 @@ bool Fund::addAmount(int amntIn) {
 }
 
 //Subtracts money from fund
+//returns true if successful, false if not
 bool Fund::subAmount(int numToSub) {
 	if (numToSub <= 0) return false;//amount is an error
 	balance -= numToSub;
@@ -25,6 +27,7 @@ bool Fund::subAmount(int numToSub) {
 
 //Checks if the balance has enough to subtract from
 //subtract the number parameter
+//return true if balance is more than amount to subtract, false if not
 bool Fund::balCheck(int numToSub){
 	if (numToSub < 0) return false;
 	if (this->balance >= numToSub) return true;
@@ -32,6 +35,7 @@ bool Fund::balCheck(int numToSub){
 }
 
 //Adds the transaction to a vector to store history of transactions
+//return if pushing the transaction is successful
 bool Fund::recordTrans(const Transaction &trans) {
 	this->history.push_back(trans);
 	return true;

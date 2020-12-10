@@ -18,6 +18,7 @@ private:
 	vector<Transaction> history;
 
 public:
+	//constructors
 	Fund();
 	~Fund();
 

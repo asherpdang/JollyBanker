@@ -20,9 +20,9 @@ using namespace std;
 */
 class JollyBanker {
 private:
-	queue<Transaction> transactionList;
-	queue<string> tranStr;
-	BSTree accountList;
+	queue<Transaction> transactionList;//stores transaction objects to be executed
+	queue<string> tranStr;//takes from file and store transaction strings
+	BSTree accountList;//bstree to hole accounts
 
 public:
 	JollyBanker();//constructor

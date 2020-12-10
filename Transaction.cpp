@@ -122,6 +122,7 @@ Transaction::Transaction(char type, int accountNum, int fundNum) {
 
 
 //ERROR transaction creation for transfer transactions
+//Takes an added failstring from transfer transaction
 Transaction::Transaction(char type, int accountNum, int fundNum, int amount, int transAcntNum, int transFundNum, string failString) {
 	transType = type;
 	accountID = accountNum;
@@ -138,6 +139,7 @@ Transaction::Transaction(char type, int accountNum, int fundNum, int amount, int
 
 
 //ERROR transaction creation for account not found
+//Takes and extra failstring from transaction
 Transaction::Transaction(char type, int accountNum, int fundNum, string failString, int amnt) {
 	transType = type;
 	accountID = accountNum;
@@ -154,16 +156,19 @@ Transaction::Transaction(char type, int accountNum, int fundNum, string failStri
 
 
 //Retrieves the transaction type character
+//returns a character
 char Transaction::getTransType() const {
 	return transType;
 }
 
 //Returns the first name
+//retrieves first name string
 string Transaction::getFirstName() const {
 	return firstName;
 }
 
 //Returns the last name
+//retrieves last name string
 string Transaction::getLastName() const {
 	return lastName;
 }
